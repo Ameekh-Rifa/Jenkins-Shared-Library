@@ -5,5 +5,9 @@ def call(Map stageParams) {
         branches: [[name:  stageParams.branch ]],
         userRemoteConfigs: [[ url: stageParams.url ]]
         userRemoteConfigs: [[ credentialsId: stageParams.credentialsId ]]
+        withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')])
+                        // Your code using the GitHub credentials
+                        // sh 'git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/your/repository.git'
+                        // Additional steps using the credentials
     ])
   }
