@@ -1,15 +1,15 @@
 def call(Map stageParams) {
  
+    withCredentials([
+        usernamePassword(
+            credentialsId: stageParams.credentialsId,
+            usernameVariable: 'GIT_USERNAME',
+            passwordVariable: 'GIT_PASSWORD'
+        )
+    ])
     checkout([
         $class: 'GitSCM',
         branches: [[name:  stageParams.branch ]],
-        userRemoteConfigs: [[ url: stageParams.url ]]
-        // userRemoteConfigs: [[ credentialsId: stageParams.credentialsId ]]
-        withCredentials: ([credentialsId: stageParams.credentialsId])
-                        // Your code using the GitHub credentials
-                        // sh 'git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/your/repository.git'
-                        // Additional steps using the credentials
-                        // withCredentials([usernamePassword(credentialsId: 'PAT_Git_Jenkins', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')])
-
+        userRemoteConfigs: [[ url: stageParams.url, credentialsId: stageParams.credentialsId ]]
     ])
   }
