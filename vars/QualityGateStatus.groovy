@@ -4,4 +4,3 @@ waitForQualityGate abortPipeline: false, credentialsId: credentialsId
 
 }
 
-
